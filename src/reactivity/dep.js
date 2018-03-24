@@ -1,0 +1,65 @@
+/* 
+Dep
+act as an observable.
+every property will have a Dep instance associated with it.
+*/
+class Dep {
+  constructor() {
+    this.subscribers = new Set();
+  }
+
+  /**
+   * add watcher instance to subscriber list.
+   *
+   * @param {Watcher} watcher instance of Watcher class
+   * @memberof Dep
+   */
+  addSubscriber(watcher) {
+    this.subscribers.add(watcher);
+  }
+
+  /**
+   * see if there is any watcher depends on current observable,
+   * if yes, add target watcher instance to subscriber list of current observable.
+   * 
+   * @memberof Dep
+   */
+  depend() {
+    if (Dep.target) {
+      Dep.target.addDep(this);
+    }
+  }
+
+  /**
+   * notify subscribers of update
+   * through calling update method on every subscriber(Watcher instance)
+   *
+   * @memberof Dep
+   */
+  notify() {
+    this.subscribers.forEach(subscriber => {
+      subscriber.update();
+    });
+  }
+}
+
+// static 
+Dep.target = null;
+const targetStack = [];
+
+function pushTarget(_target){
+    // push to stack
+    if(Dep.target){
+        targetStack.push(_target);
+    }
+
+    // set current target 
+    Dep.target = _target;
+}
+
+function popTarget(){
+    Dep.target = targetStack.pop();
+}
+
+export {pushTarget, popTarget}
+export default Dep;
