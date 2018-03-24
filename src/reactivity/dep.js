@@ -5,6 +5,7 @@ every property will have a Dep instance associated with it.
 */
 class Dep {
   constructor() {
+    // NOTICE: this is a SET, so that no duplicate subscriber will be added.
     this.subscribers = new Set();
   }
 

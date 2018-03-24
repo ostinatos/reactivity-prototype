@@ -54,7 +54,15 @@ class Watcher {
   /* 
     will be called when observable get changed.
      */
-  update() {}
+  update() {
+    // invoke get to get the new value.
+    const value = this.get();
+    // store the old value.
+    const oldValue = this.value;
+    this.value = value;
+
+    this.callback(value, oldValue);
+  }
 }
 
 export default Watcher;
