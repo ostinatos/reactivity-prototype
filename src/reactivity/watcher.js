@@ -27,7 +27,7 @@ class Watcher {
   }
 
   /*
-    ??? why get() 
+    why get()? a wrapper for getter(), to ensure current watcher will be added to subscribers' list 
      */
   get() {
     // push current watcher instance to watcher stack
