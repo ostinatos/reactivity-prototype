@@ -29,6 +29,10 @@ let appleWatcher = new Watcher(
   }
 );
 
+window.appleWatcher = appleWatcher;
+
+
+
 // watcher watches for a non-exist ROOT-LEVEL property.
 // even if banana is added to foods in runtime, this watcher will not be notified.
 // because foods.banana has not been "reactify"
@@ -39,6 +43,8 @@ let bananaWatcher = new Watcher(
   }
 )
 
+
+
 // watcher for existing nested property
 let basketAppleWatcher = new Watcher(() => foods.basket.apple, (newVal, oldVal) => {
   console.debug("existing apple in the basket, new value: ", newVal, " old value: ", oldVal);
@@ -47,6 +53,10 @@ let basketAppleWatcher = new Watcher(() => foods.basket.apple, (newVal, oldVal) 
 // watcher for non-existing nested property
 let basketBananaWatcher = new Watcher(() => foods.basket.banana, (newVal, oldVal) => {
   console.debug("non-exisiting banana in the basket, new value: ", newVal, " old value: ", oldVal);
+})
+
+let nestedWatcher = new Watcher(() => `${foods.apple} ${basketAppleWatcher.value}`, (newVal, oldVal) => {
+  console.debug("nestedWatcher watcher: new value:", newVal, ", old  value: ", oldVal)
 })
 
 

@@ -48,18 +48,21 @@ class Dep {
 Dep.target = null;
 const targetStack = [];
 
+// NOTICE: targetStack is not necessary for prototyping reactivity.
+// but in vue production code (currently 2.5.17), targetStack is used.
 function pushTarget(_target){
     // push to stack
-    if(Dep.target){
-        targetStack.push(_target);
-    }
+    // if(Dep.target){
+    //     targetStack.push(_target);
+    // }
 
     // set current target 
     Dep.target = _target;
 }
 
 function popTarget(){
-    Dep.target = targetStack.pop();
+    // Dep.target = targetStack.pop();
+    Dep.target = null;
 }
 
 export {pushTarget, popTarget}
